@@ -1,6 +1,14 @@
 use anyhow::{anyhow, bail, Result};
 
-pub fn get_two_parts<'a>(
+use super::cube_set::CubeSet;
+
+pub const BAG_CONTENTS: CubeSet = CubeSet {
+    red: 12,
+    green: 13,
+    blue: 14,
+};
+
+pub(super) fn get_two_parts<'a>(
     input: &'a str,
     pattern: &'static str,
     field_name: &'static str,

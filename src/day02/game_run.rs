@@ -19,6 +19,22 @@ impl GameRun {
     pub fn get_game_id(&self) -> u32 {
         self.game_id
     }
+
+    pub fn calc_min_set(&self) -> CubeSet {
+        let mut min_set = CubeSet::default();
+
+        for cube_set in &self.cube_sets {
+            min_set.red = std::cmp::max(min_set.red, cube_set.red);
+            min_set.green = std::cmp::max(min_set.green, cube_set.green);
+            min_set.blue = std::cmp::max(min_set.blue, cube_set.blue);
+        }
+
+        min_set
+    }
+
+    // pub fn sum_of_min_set_pows(&self) -> u32 {
+    //     // self.cube_sets.iter().map(|cube_set| cube_set.pow()).sum()
+    // }
 }
 
 impl TryFrom<&str> for GameRun {

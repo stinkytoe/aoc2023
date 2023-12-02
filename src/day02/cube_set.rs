@@ -13,6 +13,10 @@ impl CubeSet {
     pub fn could_contain(&self, rhs: &CubeSet) -> bool {
         self.red <= rhs.red && self.green <= rhs.green && self.blue <= rhs.blue
     }
+
+    pub fn pow(&self) -> u32 {
+        self.red * self.green * self.blue
+    }
 }
 
 impl TryFrom<&str> for CubeSet {
