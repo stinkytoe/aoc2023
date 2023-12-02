@@ -12,10 +12,7 @@ fn main() {
 
     // day 02
     println!("day02");
-    println!(
-        "day02 part1: {}",
-        day02::part1(include_str!("day02/puzzle_input.txt"), day02::util::BAG_CONTENTS)
-    );
+    println!("day02 part1: {}", day02::part1(include_str!("day02/puzzle_input.txt"), day02::util::BAG_CONTENTS));
     println!("day02 part2: {}", day02::part2(include_str!("day02/puzzle_input.txt")));
 }
 
