@@ -17,8 +17,8 @@ mod tests {
         use crate::day01::part01;
         use crate::day01::part02;
 
-        assert_eq!(part01(include_str!("day01/part01/sample_input.txt")), 142);
-        assert_eq!(part02(include_str!("day01/part02/sample_input.txt")), 281);
+        assert_eq!(part01(include_str!("day01/part01_sample_input.txt")), 142);
+        assert_eq!(part02(include_str!("day01/part02_sample_input.txt")), 281);
     }
 
     #[test]
