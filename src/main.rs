@@ -30,8 +30,7 @@ mod tests {
     fn day02_test() {
         use crate::day02;
 
-        assert_eq!(day02::part1(include_str!("day02/part1_sample_input.txt")), 8);
-
-        assert_eq!(day02::part2(include_str!("day02/part1_sample_input.txt")), 2286);
+        assert_eq!(day02::part1(include_str!("day02/sample_input.txt")), 8);
+        assert_eq!(day02::part2(include_str!("day02/sample_input.txt")), 2286);
     }
 }
