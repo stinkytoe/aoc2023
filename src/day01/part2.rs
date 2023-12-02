@@ -30,7 +30,11 @@ pub fn part2(input: &str) -> u32 {
                 .unwrap_or_else(|| panic!("No first number found in line: \"{line}\""));
 
             let last = (0..line.len())
-                .find_map(|i| number_str_map.keys().find(|key| line[..(line.len() - i)].ends_with(*key)))
+                .find_map(|i| {
+                    number_str_map
+                        .keys()
+                        .find(|key| line[..(line.len() - i)].ends_with(*key))
+                })
                 .unwrap_or_else(|| panic!("No last number found in line: \"{line}\""));
 
             number_str_map[first] * 10 + number_str_map[last]
