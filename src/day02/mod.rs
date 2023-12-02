@@ -14,8 +14,7 @@ pub fn part1(input: &str, bag_contents: CubeSet) -> u32 {
         .collect::<Result<Vec<GameRun>>>()
         .expect("We failed to parse the input! {e}");
 
-    let bag_contents =
-        CubeSet::try_from(bag_contents).expect("We failed to parse the supplied bag contents! {e}");
+    let bag_contents = CubeSet::try_from(bag_contents).expect("We failed to parse the supplied bag contents! {e}");
 
     game_runs
         .iter()
@@ -31,8 +30,5 @@ pub fn part2(input: &str) -> u32 {
         .collect::<Result<Vec<GameRun>>>()
         .expect("We failed to parse the input! {e}");
 
-    game_runs
-        .iter()
-        .map(|game_run| game_run.calc_min_set().pow())
-        .sum()
+    game_runs.iter().map(|game_run| game_run.calc_min_set().pow()).sum()
 }

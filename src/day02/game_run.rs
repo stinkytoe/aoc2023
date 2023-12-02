@@ -10,10 +10,7 @@ pub struct GameRun {
 
 impl GameRun {
     pub fn could_contain(&self, rhs: &CubeSet) -> bool {
-        !self
-            .cube_sets
-            .iter()
-            .any(|cube_set| !cube_set.could_contain(rhs))
+        !self.cube_sets.iter().any(|cube_set| !cube_set.could_contain(rhs))
     }
 
     pub fn get_game_id(&self) -> u32 {
@@ -53,10 +50,7 @@ impl TryFrom<&str> for GameRun {
             game_id.parse::<u32>()?
         };
 
-        let cube_sets: Vec<CubeSet> = cube_sets
-            .split("; ")
-            .map(CubeSet::try_from)
-            .collect::<Result<_>>()?;
+        let cube_sets: Vec<CubeSet> = cube_sets.split("; ").map(CubeSet::try_from).collect::<Result<_>>()?;
 
         Ok(GameRun { game_id, cube_sets })
     }
