@@ -28,10 +28,6 @@ impl GameRun {
 
         min_set
     }
-
-    // pub fn sum_of_min_set_pows(&self) -> u32 {
-    //     // self.cube_sets.iter().map(|cube_set| cube_set.pow()).sum()
-    // }
 }
 
 impl TryFrom<&str> for GameRun {
