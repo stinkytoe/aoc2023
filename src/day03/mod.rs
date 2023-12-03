@@ -1,17 +1,13 @@
 use std::collections::LinkedList;
 
 #[derive(Debug)]
-struct PartNumber {
+struct PartNumber<'a> {
     start_index: usize,
     length: usize,
-    data: String,
+    data: &'a str,
 }
 
-impl PartNumber {
-    // fn contains_index(&self, index: usize) -> bool {
-    //     self.start_index <= index && index < (self.start_index + self.length)
-    // }
-
+impl PartNumber<'_> {
     fn generate_surrounding_indices(&self) -> Vec<usize> {
         todo!()
     }
@@ -31,7 +27,7 @@ pub fn part1(input: &str) -> u32 {
         (
             width,
             height,
-            lines.iter().flat_map(|&line| line.chars()).collect::<Vec<char>>(),
+            &lines.iter().flat_map(|&line| line.chars()).collect::<String>(),
         )
     };
 
@@ -39,7 +35,7 @@ pub fn part1(input: &str) -> u32 {
     let mut symbol_list: LinkedList<Symbol> = LinkedList::new();
     let mut start_index_option: Option<usize> = None;
 
-    chars.iter().enumerate().for_each(|(index, &symbol)| {
+    chars.chars().enumerate().for_each(|(index, symbol)| {
         if symbol.is_ascii_digit() {
             if start_index_option.is_none() {
                 start_index_option = Some(index);
@@ -49,7 +45,7 @@ pub fn part1(input: &str) -> u32 {
                 part_number_list.push_back(PartNumber {
                     start_index,
                     length: index - start_index,
-                    data: chars[start_index..index].iter().collect(),
+                    data: &chars[start_index..index],
                 });
                 start_index_option = None;
             }
