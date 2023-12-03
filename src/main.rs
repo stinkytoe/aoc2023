@@ -1,5 +1,6 @@
-pub mod day01;
-pub mod day02;
+mod day01;
+mod day02;
+mod day03;
 
 fn main() {
     println!("Hello, aoc2023!");
@@ -14,6 +15,11 @@ fn main() {
     println!("day02");
     println!("day02 part1: {}", day02::part1(include_str!("day02/puzzle_input.txt")));
     println!("day02 part2: {}", day02::part2(include_str!("day02/puzzle_input.txt")));
+
+    // day 03
+    println!("day03");
+    // println!("day03 part1: {}", day03::part1(include_str!("day03/puzzle_input.txt")));
+    // println!("day03 part2: {}", day03::part2(include_str!("day03/puzzle_input.txt")));
 }
 
 #[cfg(test)]
@@ -32,5 +38,13 @@ mod tests {
 
         assert_eq!(day02::part1(include_str!("day02/sample_input.txt")), 8);
         assert_eq!(day02::part2(include_str!("day02/sample_input.txt")), 2286);
+    }
+
+    #[test]
+    fn day03_test() {
+        use crate::day03;
+
+        assert_eq!(day03::part1(include_str!("day03/sample_input.txt")), 8);
+        // assert_eq!(day03::part2(include_str!("day03/sample_input.txt")), 2286);
     }
 }
