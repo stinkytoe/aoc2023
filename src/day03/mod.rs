@@ -8,8 +8,13 @@ struct PartNumber<'a> {
 }
 
 impl PartNumber<'_> {
-    fn generate_surrounding_indices(&self) -> Vec<usize> {
-        todo!()
+    fn generate_surrounding_indices(&self, width: usize, height: usize) -> Vec<usize> {
+        let on_left_edge = self.start_index % width == 0;
+        let on_right_edge = (self.start_index + self.length) % width == 0;
+        let on_top_edge = self.start_index < width;
+        let on_bottom_edge = self.start_index >= width * (height - 1);
+
+        vec![]
     }
 }
 
@@ -27,7 +32,7 @@ pub fn part1(input: &str) -> u32 {
         (
             width,
             height,
-            &lines.iter().flat_map(|&line| line.chars()).collect::<String>(),
+            lines.iter().flat_map(|&line| line.chars()).collect::<String>(),
         )
     };
 
