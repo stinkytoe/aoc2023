@@ -19,7 +19,7 @@ fn main() {
     // day 03
     println!("day03");
     println!("day03 part1: {}", day03::part1(include_str!("day03/puzzle_input.txt")));
-    // println!("day03 part2: {}", day03::part2(include_str!("day03/puzzle_input.txt")));
+    println!("day03 part2: {}", day03::part2(include_str!("day03/puzzle_input.txt")));
 }
 
 #[cfg(test)]

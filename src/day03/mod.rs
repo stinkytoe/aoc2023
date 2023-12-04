@@ -1,5 +1,109 @@
 use std::collections::LinkedList;
 
+pub fn part1(input: &str) -> u32 {
+    let (width, height, chars) = {
+        let lines = input.lines().collect::<Vec<&str>>();
+        let width = lines[0].len();
+        let height = lines.len();
+        (
+            width,
+            height,
+            lines.iter().flat_map(|&line| line.chars()).collect::<String>(),
+        )
+    };
+
+    let mut part_number_list: LinkedList<PartNumber> = LinkedList::new();
+    let mut symbol_list: LinkedList<Symbol> = LinkedList::new();
+    let mut start_index_option: Option<usize> = None;
+
+    chars.chars().enumerate().for_each(|(index, symbol)| {
+        if symbol.is_ascii_digit() {
+            if start_index_option.is_none() {
+                start_index_option = Some(index);
+            }
+        } else {
+            if let Some(start_index) = start_index_option {
+                part_number_list.push_back(PartNumber {
+                    start_index,
+                    length: index - start_index,
+                    data: &chars[start_index..index],
+                });
+                start_index_option = None;
+            }
+
+            if symbol != '.' {
+                symbol_list.push_back(Symbol { index, _symbol: symbol })
+            }
+        }
+    });
+
+    part_number_list
+        .iter()
+        .filter(|&part_number| {
+            symbol_list
+                .iter()
+                .any(|symbol| part_number.is_symbol_in_range(symbol, width, height))
+        })
+        .map(|part_number| part_number.to_u32())
+        .sum()
+}
+
+pub fn part2(input: &str) -> u32 {
+    let (width, height, chars) = {
+        let lines = input.lines().collect::<Vec<&str>>();
+        let width = lines[0].len();
+        let height = lines.len();
+        (
+            width,
+            height,
+            lines.iter().flat_map(|&line| line.chars()).collect::<String>(),
+        )
+    };
+
+    let mut part_number_list: LinkedList<PartNumber> = LinkedList::new();
+    let mut symbol_list: LinkedList<Symbol> = LinkedList::new();
+    let mut start_index_option: Option<usize> = None;
+
+    chars.chars().enumerate().for_each(|(index, symbol)| {
+        if symbol.is_ascii_digit() || symbol == '-' {
+            if start_index_option.is_none() {
+                start_index_option = Some(index);
+            }
+        } else {
+            if let Some(start_index) = start_index_option {
+                part_number_list.push_back(PartNumber {
+                    start_index,
+                    length: index - start_index,
+                    data: &chars[start_index..index],
+                });
+                start_index_option = None;
+            }
+
+            if symbol != '.' {
+                symbol_list.push_back(Symbol { index, _symbol: symbol })
+            }
+        }
+    });
+
+    symbol_list
+        .iter()
+        .map(|symbol| {
+            let touching_part_numbers: Vec<&PartNumber> = part_number_list
+                .iter()
+                .filter(|part_number| part_number.is_symbol_in_range(symbol, width, height))
+                .collect();
+            match touching_part_numbers.len() {
+                0 | 1 => 0,
+                2 => touching_part_numbers
+                    .iter()
+                    .map(|part_number| part_number.to_u32())
+                    .product(),
+                _ => panic!("More than two parts touching a symbol! That's not supposed to happen!"),
+            }
+        })
+        .sum()
+}
+
 #[derive(Debug)]
 struct PartNumber<'a> {
     start_index: usize,
@@ -53,57 +157,4 @@ impl PartNumber<'_> {
 struct Symbol {
     index: usize,
     _symbol: char,
-}
-
-pub fn part1(input: &str) -> u32 {
-    let (width, height, chars) = {
-        let lines = input.lines().collect::<Vec<&str>>();
-        let width = lines[0].len();
-        let height = lines.len();
-        (
-            width,
-            height,
-            lines.iter().flat_map(|&line| line.chars()).collect::<String>(),
-        )
-    };
-
-    let mut part_number_list: LinkedList<PartNumber> = LinkedList::new();
-    let mut symbol_list: LinkedList<Symbol> = LinkedList::new();
-    let mut start_index_option: Option<usize> = None;
-
-    chars.chars().enumerate().for_each(|(index, symbol)| {
-        if symbol.is_ascii_digit() {
-            if start_index_option.is_none() {
-                start_index_option = Some(index);
-            }
-        } else {
-            if let Some(start_index) = start_index_option {
-                part_number_list.push_back(PartNumber {
-                    start_index,
-                    length: index - start_index,
-                    data: &chars[start_index..index],
-                });
-                start_index_option = None;
-            }
-
-            if symbol != '.' {
-                symbol_list.push_back(Symbol { index, _symbol: symbol })
-            }
-        }
-    });
-
-    let filtered_list: Vec<&PartNumber> = part_number_list
-        .iter()
-        .filter(|&part_number| {
-            symbol_list
-                .iter()
-                .any(|symbol| part_number.is_symbol_in_range(symbol, width, height))
-        })
-        .collect();
-
-    filtered_list.iter().map(|part_number| part_number.to_u32()).sum()
-}
-
-pub fn part2(input: &str) -> u32 {
-    todo!()
 }
