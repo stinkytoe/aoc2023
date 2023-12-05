@@ -8,7 +8,7 @@ pub struct ScratchCard {
 }
 
 impl ScratchCard {
-    fn how_many_matches(&self) -> usize {
+    pub fn how_many_matches(&self) -> usize {
         self.given_numbers
             .iter()
             .filter(|given_number| self.winning_numbers.contains(given_number))
