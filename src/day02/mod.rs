@@ -1,6 +1,6 @@
 mod cube_set;
 mod game_run;
-mod util;
+pub(crate) mod util;
 
 use anyhow::Result;
 
