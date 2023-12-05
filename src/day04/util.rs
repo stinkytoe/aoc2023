@@ -1,9 +1,12 @@
 use anyhow::{anyhow, bail, Result};
+use std::collections::BTreeSet;
+
+use crate::util::get_two_parts;
 
 #[derive(Debug)]
 pub struct ScratchCard {
     _card_number: u32,
-    winning_numbers: Vec<u32>,
+    winning_numbers: BTreeSet<u32>,
     given_numbers: Vec<u32>,
 }
 
@@ -42,7 +45,7 @@ pub fn parse_scratchcards(input: &str) -> Result<Vec<ScratchCard>> {
 
             let (winning_numbers, given_numbers) = get_two_parts(_card, " | ", "Card Numbers")?;
 
-            let winning_numbers = parse_space_separated_ints(winning_numbers)?;
+            let winning_numbers = BTreeSet::from_iter(parse_space_separated_ints(winning_numbers)?.iter().copied());
             let given_numbers = parse_space_separated_ints(given_numbers)?;
 
             Ok(ScratchCard {
@@ -60,26 +63,4 @@ fn parse_space_separated_ints(input: &str) -> Result<Vec<u32>> {
         .filter(|n| !n.is_empty())
         .map(|n| Ok(n.parse::<u32>()?))
         .collect::<Result<Vec<u32>>>()
-}
-
-pub fn get_two_parts<'a>(
-    input: &'a str,
-    pattern: &'static str,
-    field_name: &'static str,
-) -> Result<(&'a str, &'a str)> {
-    let mut split = input.split(pattern);
-
-    let first_part = split
-        .find(|s| !s.is_empty())
-        .ok_or(anyhow!("Malformed {field_name}, no first part: {input}!"))?;
-
-    let second_part = split
-        .find(|s| !s.is_empty())
-        .ok_or(anyhow!("Malformed {field_name}, no second part: {input}!"))?;
-
-    if split.next().is_some() {
-        bail!("Malformed {field_name}, more than two parts: {input}!");
-    }
-
-    Ok((first_part, second_part))
 }

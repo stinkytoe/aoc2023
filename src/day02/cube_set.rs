@@ -1,6 +1,6 @@
 use anyhow::{bail, Error, Result};
 
-use crate::day02::util::get_two_parts;
+use crate::util::get_two_parts;
 
 #[derive(Default, Debug)]
 pub struct CubeSet {

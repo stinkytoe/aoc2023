@@ -1,7 +1,7 @@
 use anyhow::{bail, Error, Result};
 
 use crate::day02::cube_set::CubeSet;
-use crate::day02::util::get_two_parts;
+use crate::util::get_two_parts;
 
 pub struct GameRun {
     game_id: u32,
