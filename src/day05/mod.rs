@@ -1,6 +1,6 @@
-use std::str::Lines;
-
 use anyhow::{anyhow, bail, Error, Result};
+use rayon::prelude::*;
+use std::str::Lines;
 
 use crate::util::get_two_parts;
 
@@ -20,6 +20,30 @@ pub fn part1(input: &str) -> u64 {
         })
         .min()
         .expect("no seeds?")
+}
+
+pub fn part2(input: &str) -> u64 {
+    let Almanac { seeds, maps } = input.try_into().expect("failed to parse input!");
+
+    seeds
+        .chunks(2)
+        .map(|chunk| {
+            (chunk[0]..=(chunk[0] + chunk[1] - 1))
+                .into_par_iter()
+                .map(|seed| {
+                    let mut n = seed;
+
+                    for map in &maps {
+                        n = map.do_map(n);
+                    }
+
+                    n
+                })
+                .min()
+                .expect("whoa!")
+        })
+        .min()
+        .expect("whoa!")
 }
 
 struct Almanac {

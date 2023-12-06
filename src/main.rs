@@ -29,10 +29,10 @@ fn main() {
     println!("day04 part1: {}", day04::part1(include_str!("day04/puzzle_input.txt")));
     println!("day04 part2: {}", day04::part2(include_str!("day04/puzzle_input.txt")));
 
-    // day 04
+    // day 05
     println!("day05");
     println!("day05 part1: {}", day05::part1(include_str!("day05/puzzle_input.txt")));
-    // println!("day05 part2: {}", day05::part2(include_str!("day05/puzzle_input.txt")));
+    println!("day05 part2: {}", day05::part2(include_str!("day05/puzzle_input.txt")));
 }
 
 #[cfg(test)]
@@ -74,6 +74,6 @@ mod tests {
         use crate::day05;
 
         assert_eq!(day05::part1(include_str!("day05/sample_input.txt")), 35);
-        // assert_eq!(day05::part2(include_str!("day05/sample_input.txt")), 30);
+        assert_eq!(day05::part2(include_str!("day05/sample_input.txt")), 46);
     }
 }
