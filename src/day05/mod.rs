@@ -22,6 +22,8 @@ pub fn part1(input: &str) -> u64 {
         .expect("no seeds?")
 }
 
+// allowing dead code here because this is super time intensive
+#[allow(dead_code)]
 pub fn part2(input: &str) -> u64 {
     let Almanac { seeds, maps } = input.try_into().expect("failed to parse input!");
 
